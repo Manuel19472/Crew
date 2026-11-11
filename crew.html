@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E9F8E">
+<title>Crew</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F2F5F4;--surf:#fff;--ink:#0B1F1E;--mut:#55706D;--line:#D5E0DE;--ac:#0E9F8E;--act:#fff;--hot:#E5384A;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08171A;--surf:#10262A;--ink:#E8F7F5;--mut:#8FB1AD;--line:#1E3B40;--ac:#2DD4BF;--act:#04201D;--hot:#FF6B7A}}
+:root[data-theme="dark"]{--bg:#08171A;--surf:#10262A;--ink:#E8F7F5;--mut:#8FB1AD;--line:#1E3B40;--ac:#2DD4BF;--act:#04201D;--hot:#FF6B7A}
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Sora',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.45}
+header{max-width:520px;margin:0 auto;padding:18px 16px 0;display:flex;align-items:baseline;gap:10px}
+h1{margin:0;font-size:28px;font-weight:800;letter-spacing:-.03em}
+header span{color:var(--mut);font-size:13px}
+main{max-width:520px;margin:0 auto;padding:14px 16px 110px;display:flex;flex-direction:column;gap:14px}
+h2{margin:0;font-size:20px}h3{margin:14px 0 6px;font-size:14px;color:var(--mut);font-weight:600}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:12px}
+textarea,input,select{font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;width:100%}
+textarea{min-height:96px;resize:vertical}
+label{font-size:13px;color:var(--mut);display:flex;flex-direction:column;gap:4px;flex:1}
+.row{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.btn{font:inherit;font-weight:600;font-size:15px;padding:12px 16px;border-radius:14px;border:0;background:var(--ac);color:var(--act);cursor:pointer;flex:1}
+.btn.sec{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.chip{font:inherit;font-size:14px;font-weight:600;padding:8px 13px;border-radius:99px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"],.seg button[aria-pressed="true"]{background:var(--ac);border-color:var(--ac);color:var(--act)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.seg{display:flex;gap:6px;background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:5px}
+.seg button{flex:1;font:inherit;font-weight:600;padding:10px;border-radius:12px;border:0;background:transparent;color:var(--ink);cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.team{background:var(--bg);border-radius:14px;padding:12px;border-left:6px solid hsl(var(--h) 65% 45%);display:flex;flex-direction:column;gap:2px}
+.team span{font-size:15px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{font-size:12px;color:var(--mut);text-align:left;font-weight:600}td,th{padding:7px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
+.match{display:grid;grid-template-columns:1fr 54px 10px 54px 1fr;gap:6px;align-items:center;padding:4px 0;font-size:14px}
+.match input{padding:8px 4px;text-align:center}
+.match .r{text-align:right}.match i{text-align:center;color:var(--mut)}
+.match.bye{grid-template-columns:1fr auto}.match em{color:var(--mut);font-size:13px}
+.champ{background:var(--ac);color:var(--act);border-radius:14px;padding:14px;font-weight:800;font-size:18px;text-align:center}
+.item{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;border-bottom:1px solid var(--line);padding:8px 0;font-size:14px}
+.item small{display:block;color:var(--mut)}
+.x{background:none;border:0;color:var(--hot);font:inherit;font-size:13px;cursor:pointer;padding:0 0 0 8px}
+.sum{display:flex;justify-content:space-between;font-size:16px;padding:6px 0}
+.sum b{font-variant-numeric:tabular-nums}
+.big{font-size:56px;font-weight:800;text-align:center;min-height:72px;line-height:72px;letter-spacing:-.03em}
+.coin.fl{animation:fl .6s ease}@keyframes fl{50%{transform:rotateY(90deg) scale(.7)}}
+.mut{color:var(--mut);font-size:13px;margin:0}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--surf);border-top:1px solid var(--line);display:flex;gap:6px;padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;font:inherit;font-weight:600;font-size:14px;padding:12px 0;border-radius:12px;border:0;background:transparent;color:var(--mut);cursor:pointer}
+nav button[aria-pressed="true"]{background:var(--ac);color:var(--act)}
+#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s}
+#toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><h1>Crew</h1><span>Tools für deine Gruppe</span></header>
+<main id="v"></main>
+<nav id="nav"><button data-t="t">Turnier</button><button data-t="b">Rechnung</button><button data-t="x">Extras</button></nav>
+<div id="toast" role="status"></div>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const KEY="crew-v1";
+let S={tab:"t",sub:"t",teams:{raw:"",n:2,res:null},cup:{raw:"",mode:"liga",d:null},bill:{people:[],items:[],tip:10,payer:""}};
+try{const r=JSON.parse(localStorage.getItem(KEY)||"null");if(r)S=Object.assign(S,r)}catch(e){}
+let D={pn:"",in:"",ip:"",xr:""},sel=null;
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const nm=raw=>[...new Set(raw.split(/[\n,;]+/).map(s=>s.trim()).filter(Boolean))];
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const eur=c=>(c/100).toFixed(2).replace(".",",")+" €";
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),2200)}
+async function copy(t){try{await navigator.clipboard.writeText(t);toast("Kopiert")}catch(e){try{prompt("Text kopieren:",t)}catch(x){}}}
+
+/* ---------- Teams ---------- */
+function draw(){const T=S.teams,p=nm(T.raw),n=Math.max(2,Math.min(8,+T.n||2));
+  if(p.length<n){toast("Du brauchst mindestens so viele Namen wie Teams.");return}
+  const t=Array.from({length:n},()=>[]);shuf(p).forEach((x,i)=>t[i%n].push(x));T.n=n;T.res=t;save();render()}
+function vTeams(){const T=S.teams;
+  return `<div class="card"><h2>Teams auslosen</h2><textarea id="tr" placeholder="Namen, einer pro Zeile oder mit Komma getrennt">${esc(T.raw)}</textarea>
+  <div class="row"><label>Anzahl Teams<input id="tn" type="number" min="2" max="8" inputmode="numeric" value="${T.n}"></label><button class="btn" data-a="tgo">Auslosen</button></div>
+  ${T.res?`<div class="grid">${T.res.map((m,i)=>`<div class="team" style="--h:${i*47+165}"><b>Team ${i+1}</b>${m.map(x=>`<span>${esc(x)}</span>`).join("")}</div>`).join("")}</div>
+  <div class="row"><button class="btn sec" data-a="tcup">Als Turnier</button><button class="btn sec" data-a="tcopy">Kopieren</button></div>`:""}</div>`}
+
+/* ---------- Turnier ---------- */
+function mkLiga(p){let a=p.slice();if(a.length%2)a.push(null);const n=a.length,m=[];
+  for(let r=0;r<n-1;r++){for(let i=0;i<n/2;i++){const x=a[i],y=a[n-1-i];if(x&&y)m.push({r:r+1,a:x,b:y,sa:"",sb:""})}a.splice(1,0,a.pop())}return{mode:"liga",p:p,m:m}}
+function mkKo(p){const a=shuf(p);let n=2;while(n<a.length)n*=2;const k=n-a.length,pairs=[];
+  for(let i=0;i<k;i++)pairs.push([a[i],null]);for(let i=k;i<a.length;i+=2)pairs.push([a[i],a[i+1]]);
+  const rounds=[pairs.map(x=>({a:x[0],b:x[1],sa:"",sb:""}))];
+  for(let c=n/4;c>=1;c/=2)rounds.push(Array.from({length:c},()=>({a:null,b:null,sa:"",sb:""})));return{mode:"ko",rounds:rounds}}
+function win(m,r){if(!m)return null;if(r===0&&m.a&&!m.b)return m.a;
+  if(m.a&&m.b&&m.sa!==""&&m.sb!==""&&+m.sa!==+m.sb)return +m.sa>+m.sb?m.a:m.b;return null}
+function resolve(d){for(let r=1;r<d.rounds.length;r++)d.rounds[r].forEach((m,i)=>{m.a=win(d.rounds[r-1][2*i],r-1);m.b=win(d.rounds[r-1][2*i+1],r-1)})}
+function table(d){const t={};d.p.forEach(n=>t[n]={n:n,sp:0,s:0,u:0,v:0,g:0,k:0,pt:0});
+  d.m.forEach(m=>{if(m.sa===""||m.sb==="")return;const x=t[m.a],y=t[m.b],a=+m.sa,b=+m.sb;x.sp++;y.sp++;x.g+=a;x.k+=b;y.g+=b;y.k+=a;
+    if(a>b){x.s++;x.pt+=3;y.v++}else if(a<b){y.s++;y.pt+=3;x.v++}else{x.u++;y.u++;x.pt++;y.pt++}});
+  return Object.values(t).sort((p,q)=>q.pt-p.pt||(q.g-q.k)-(p.g-p.k)||q.g-p.g||p.n.localeCompare(q.n))}
+function tabHtml(){const t=table(S.cup.d);
+  return `<table><tr><th>#</th><th>Name</th><th>Sp</th><th>S-U-N</th><th>Punkte</th><th>Pkt</th></tr>${t.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.n)}</td><td>${r.sp}</td><td>${r.s}-${r.u}-${r.v}</td><td>${r.g}:${r.k}</td><td><b>${r.pt}</b></td></tr>`).join("")}</table>`}
+const inp=(attrs,v,l)=>`<input type="number" min="0" inputmode="numeric" ${attrs} value="${v}" aria-label="${esc(l)}">`;
+function ligaHtml(){const d=S.cup.d;let h=`<div class="scroll" id="tab">${tabHtml()}</div>`,last=0;
+  d.m.forEach((m,i)=>{if(m.r!==last){last=m.r;h+=`<h3>Spieltag ${m.r}</h3>`}
+    h+=`<div class="match"><span>${esc(m.a)}</span>${inp(`data-l="${i}" data-s="sa"`,m.sa,"Punkte "+m.a)}<i>:</i>${inp(`data-l="${i}" data-s="sb"`,m.sb,"Punkte "+m.b)}<span class="r">${esc(m.b)}</span></div>`});return h}
+const rname=c=>c===1?"Finale":c===2?"Halbfinale":c===4?"Viertelfinale":c===8?"Achtelfinale":"Runde";
+function koHtml(){const d=S.cup.d;resolve(d);let h="";
+  d.rounds.forEach((rd,r)=>{h+=`<h3>${rname(rd.length)}</h3>`;rd.forEach((m,i)=>{
+    if(r===0&&!m.b){h+=`<div class="match bye"><span>${esc(m.a)}</span><em>Freilos, kommt weiter</em></div>`;return}
+    const ok=m.a&&m.b?"":"disabled";
+    h+=`<div class="match"><span>${m.a?esc(m.a):"…"}</span>${inp(`data-r="${r}" data-i="${i}" data-s="sa" ${ok}`,m.sa,"Punkte links")}<i>:</i>${inp(`data-r="${r}" data-i="${i}" data-s="sb" ${ok}`,m.sb,"Punkte rechts")}<span class="r">${m.b?esc(m.b):"…"}</span></div>`})});
+  const c=win(d.rounds[d.rounds.length-1][0],d.rounds.length-1);
+  return (c?`<div class="champ">Sieger: ${esc(c)}</div>`:`<p class="mut">Im K.O. muss es einen Sieger geben, Unentschieden zählen nicht.</p>`)+h}
+function vCup(){const C=S.cup;
+  if(!C.d)return `<div class="card"><h2>Turnier</h2><textarea id="cr" placeholder="Teilnehmer, einer pro Zeile">${esc(C.raw)}</textarea>
+    <div class="seg"><button data-a="cmode" data-v="liga" aria-pressed="${C.mode==="liga"}">Jeder gegen jeden</button><button data-a="cmode" data-v="ko" aria-pressed="${C.mode==="ko"}">K.O.-Runde</button></div>
+    <button class="btn" data-a="cgo">Turnier starten</button></div>`;
+  return `<div class="card"><div class="row" style="justify-content:space-between;align-items:center"><h2>${C.d.mode==="liga"?"Liga":"K.O.-Runde"}</h2><div class="row"><button class="chip" data-a="ccopy">Kopieren</button><button class="chip" data-a="creset">Neu</button></div></div><div id="cupbody">${C.d.mode==="liga"?ligaHtml():koHtml()}</div></div>`}
+function cupText(){const d=S.cup.d;if(d.mode==="liga")return table(d).map((r,i)=>`${i+1}. ${r.n}: ${r.pt} Pkt (${r.g}:${r.k})`).join("\n");
+  resolve(d);const c=win(d.rounds[d.rounds.length-1][0],d.rounds.length-1);return c?"Sieger: "+c:"K.O.-Runde läuft noch"}
+function vT(){return `<div class="seg"><button data-a="sub" data-v="t" aria-pressed="${S.sub==="t"}">Teams</button><button data-a="sub" data-v="c" aria-pressed="${S.sub==="c"}">Turnier</button></div>`+(S.sub==="t"?vTeams():vCup())}
+
+/* ---------- Rechnung ---------- */
+function calc(){const B=S.bill,t={};B.people.forEach(n=>t[n]=0);
+  B.items.forEach(it=>{let who=it.w.filter(n=>n in t);if(!who.length)who=B.people;if(!who.length)return;
+    const base=Math.floor(it.c/who.length);let rem=it.c-base*who.length;who.forEach(n=>{t[n]+=base+(rem-->0?1:0)})});
+  const o={};let sum=0,tip=0;B.people.forEach(n=>{const x=Math.round(t[n]*B.tip/100);o[n]=t[n]+x;sum+=t[n];tip+=x});return{o:o,sum:sum,tip:tip}}
+function billText(){const B=S.bill,r=calc(),p=B.payer&&B.people.includes(B.payer)?B.payer:B.people[0];
+  return "Rechnung ("+eur(r.sum+r.tip)+", davon Trinkgeld "+eur(r.tip)+")\n"+B.people.map(n=>n===p?n+": hat bezahlt, Anteil "+eur(r.o[n]):n+" zahlt "+eur(r.o[n])+" an "+p).join("\n")}
+function vB(){const B=S.bill,r=calc(),p=B.people.includes(B.payer)?B.payer:B.people[0];
+  const on=n=>sel===null||sel.includes(n);
+  return `<div class="card"><h2>Wer ist dabei?</h2>
+  <div class="row"><input data-d="pn" placeholder="Name" value="${esc(D.pn)}"><button class="btn" style="flex:0 0 auto" data-a="padd">Dazu</button></div>
+  <div class="chips">${B.people.map(n=>`<button class="chip" data-a="prm" data-v="${esc(n)}" aria-label="${esc(n)} entfernen">${esc(n)} ×</button>`).join("")||`<p class="mut">Noch niemand. Tippe Namen ein.</p>`}</div></div>
+  ${B.people.length?`<div class="card"><h2>Was wurde bestellt?</h2>
+  <div class="row"><input data-d="in" placeholder="z. B. Pizza" value="${esc(D.in)}"><input data-d="ip" inputmode="decimal" placeholder="Preis €" style="max-width:110px" value="${esc(D.ip)}"></div>
+  <p class="mut">Wer hat es gehabt?</p><div class="chips">${B.people.map(n=>`<button class="chip" data-a="isel" data-v="${esc(n)}" aria-pressed="${on(n)}">${esc(n)}</button>`).join("")}</div>
+  <button class="btn" data-a="iadd">Hinzufügen</button>
+  <div>${B.items.map((it,i)=>`<div class="item"><span>${esc(it.n)}<small>${esc((it.w.length&&it.w.length<B.people.length?it.w.join(", "):"alle"))}</small></span><span>${eur(it.c)}<button class="x" data-a="idel" data-v="${i}">Löschen</button></span></div>`).join("")}</div></div>
+  <div class="card"><h2>Trinkgeld</h2><div class="chips">${[0,5,10,15,20].map(v=>`<button class="chip" data-a="tip" data-v="${v}" aria-pressed="${B.tip===v}">${v} %</button>`).join("")}</div>
+  <h2 style="margin-top:6px">Ergebnis</h2><label>Wer hat bezahlt?<select data-a="pay">${B.people.map(n=>`<option ${n===p?"selected":""}>${esc(n)}</option>`).join("")}</select></label>
+  <div>${B.people.map(n=>`<div class="sum"><span>${esc(n)}${n===p?" (hat bezahlt)":""}</span><b>${eur(r.o[n])}</b></div>`).join("")}
+  <div class="sum" style="border-top:1px solid var(--line)"><span>Gesamt inkl. Trinkgeld</span><b>${eur(r.sum+r.tip)}</b></div></div>
+  ${B.items.length?`<p class="mut">${B.people.filter(n=>n!==p).map(n=>esc(n)+" zahlt "+eur(r.o[n])+" an "+esc(p)).join(" · ")}</p>`:""}
+  <div class="row"><button class="btn sec" data-a="bcopy">Kopieren</button><button class="btn sec" data-a="breset">Alles leeren</button></div></div>`:""}`}
+function addItem(){const B=S.bill,c=Math.round(parseFloat(D.ip.replace(",","."))*100),n=D.in.trim();
+  if(!n||!(c>0)){toast("Name und Preis eingeben.");return}
+  B.items.push({n:n,c:c,w:sel===null?B.people.slice():sel.slice()});D.in="";D.ip="";sel=null;save();render()}
+function addPerson(){const n=D.pn.trim();if(!n)return;const B=S.bill;if(B.people.includes(n)){toast("Den Namen gibt es schon.");return}B.people.push(n);D.pn="";save();render()}
+
+/* ---------- Extras ---------- */
+function vX(){if(!D.xr)D.xr=(S.bill.people.length?S.bill.people:nm(S.teams.raw)).join("\n");
+  return `<div class="card"><h2>Münzwurf</h2><div class="big coin" id="coin">Kopf?</div><button class="btn" data-a="coin">Werfen</button></div>
+  <div class="card"><h2>Würfel</h2><div class="big" id="die">–</div><div class="row"><button class="btn" data-a="dice" data-v="6">W6</button><button class="btn" data-a="dice" data-v="20">W20</button></div></div>
+  <div class="card"><h2>Wer ist dran?</h2><textarea data-d="xr" placeholder="Namen, einer pro Zeile">${esc(D.xr)}</textarea>
+  <div class="big" id="pick" style="font-size:34px;line-height:1.2;min-height:48px"></div>
+  <div class="row"><button class="btn" data-a="pick">Auslosen</button><button class="btn sec" data-a="order">Reihenfolge</button></div></div>`}
+
+/* ---------- App ---------- */
+function render(){document.querySelectorAll("#nav button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.t===S.tab)));
+  $("#v").innerHTML=S.tab==="t"?vT():S.tab==="b"?vB():vX()}
+$("#nav").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.tab=b.dataset.t;save();render();scrollTo(0,0)};
+$("#v").addEventListener("click",e=>{const a=e.target.closest("[data-a]");if(!a||a.tagName==="SELECT")return;const k=a.dataset.a,v=a.dataset.v,B=S.bill;
+  if(k==="sub"){S.sub=v}
+  else if(k==="tgo"){S.teams.raw=$("#tr").value;S.teams.n=+$("#tn").value;draw();return}
+  else if(k==="tcup"){S.cup.raw=S.teams.res.map((_,i)=>"Team "+(i+1)).join("\n");S.cup.d=null;S.sub="c"}
+  else if(k==="tcopy"){copy(S.teams.res.map((m,i)=>"Team "+(i+1)+": "+m.join(", ")).join("\n"));return}
+  else if(k==="cmode"){S.cup.raw=$("#cr").value;S.cup.mode=v}
+  else if(k==="cgo"){S.cup.raw=$("#cr").value;const p=nm(S.cup.raw);if(p.length<2){toast("Mindestens 2 Teilnehmer.");return}S.cup.d=S.cup.mode==="liga"?mkLiga(p):mkKo(p)}
+  else if(k==="creset"){if(!confirm("Turnier verwerfen?"))return;S.cup.d=null}
+  else if(k==="ccopy"){copy(cupText());return}
+  else if(k==="padd"){addPerson();return}
+  else if(k==="prm"){B.people=B.people.filter(n=>n!==v);B.items.forEach(it=>it.w=it.w.filter(n=>n!==v));if(sel)sel=sel.filter(n=>n!==v)}
+  else if(k==="isel"){if(sel===null)sel=B.people.slice();sel=sel.includes(v)?sel.filter(n=>n!==v):sel.concat(v)}
+  else if(k==="iadd"){addItem();return}
+  else if(k==="idel"){B.items.splice(+v,1)}
+  else if(k==="tip"){B.tip=+v}
+  else if(k==="bcopy"){copy(billText());return}
+  else if(k==="breset"){if(!confirm("Alle Namen und Posten löschen?"))return;S.bill={people:[],items:[],tip:10,payer:""};sel=null}
+  else if(k==="coin"){const c=$("#coin");c.classList.remove("fl");void c.offsetWidth;c.classList.add("fl");setTimeout(()=>{c.textContent=Math.random()<.5?"Kopf":"Zahl"},300);return}
+  else if(k==="dice"){const d=$("#die");let i=0;const t=setInterval(()=>{d.textContent=1+Math.floor(Math.random()*+v);if(++i>8)clearInterval(t)},60);return}
+  else if(k==="pick"){const p=nm(D.xr);if(p.length<2){toast("Mindestens 2 Namen.");return}const el=$("#pick");let i=0;const t=setInterval(()=>{el.textContent=p[Math.floor(Math.random()*p.length)];if(++i>16)clearInterval(t)},80);return}
+  else if(k==="order"){const p=nm(D.xr);if(p.length<2){toast("Mindestens 2 Namen.");return}$("#pick").innerHTML=shuf(p).map((n,i)=>`<div style="font-size:18px;text-align:left">${i+1}. ${esc(n)}</div>`).join("");return}
+  save();render()});
+$("#v").addEventListener("change",e=>{const t=e.target;
+  if(t.dataset.a==="pay"){S.bill.payer=t.value;save();render();return}
+  if(t.dataset.r!==undefined){S.cup.d.rounds[t.dataset.r][t.dataset.i][t.dataset.s]=t.value;save();$("#cupbody").innerHTML=koHtml()}});
+$("#v").addEventListener("input",e=>{const t=e.target;
+  if(t.id==="tr")S.teams.raw=t.value;else if(t.id==="tn")S.teams.n=+t.value;else if(t.id==="cr")S.cup.raw=t.value;
+  else if(t.dataset.d)D[t.dataset.d]=t.value;
+  else if(t.dataset.l!==undefined){S.cup.d.m[t.dataset.l][t.dataset.s]=t.value;$("#tab").innerHTML=tabHtml()}
+  save()});
+$("#v").addEventListener("keydown",e=>{if(e.key!=="Enter")return;const d=e.target.dataset.d;if(d==="pn")addPerson();else if(d==="in"||d==="ip")addItem()});
+render();
+</script>
+</body>
+</html>
